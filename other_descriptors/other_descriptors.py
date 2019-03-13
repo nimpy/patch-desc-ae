@@ -1,10 +1,15 @@
 import numpy as np
-from evaluation.chen_descriptor_training import sigmoid
+from other_descriptors.chen_descriptor_training import sigmoid
+# import cv2 as cv
+
+
+patch_size = 16
+
 
 # Chen et al. version for RGB images
 
-def load_chen_16_rgb():
-    input_size = 16 * 16 * 3
+def init_chen_rgb():
+    input_size = patch_size * patch_size * 3
     hidden_size = 128
 
     theta = np.load('encoderChenEtAl_RGB_400it.npy')
@@ -17,11 +22,11 @@ def load_chen_16_rgb():
     return W1, b1
 
 
-W1_rgb, b1_rgb = load_chen_16_rgb()
+W1_rgb, b1_rgb = init_chen_rgb()
 
 
-def chen_16_rgb(patch):
-    """ Return descriptor for 16x16x3 patches. """
+def compute_chen_rgb(patch):
+    """ Return descriptor for a 16x16x3 patch. """
     patch_size = patch.shape[0]
     data = np.expand_dims(patch.reshape(patch_size * patch_size * 3), axis=1)
     z2 = W1_rgb.dot(data) + np.tile(b1_rgb, (1, 1)).transpose()
@@ -31,8 +36,8 @@ def chen_16_rgb(patch):
 
 # Chen et al. version for grayscale images
 
-def load_chen_16():
-    input_size = 16 * 16
+def init_chen():
+    input_size = patch_size * patch_size
     hidden_size = 128
 
     theta = np.load('encoderChenEtAl_400it.npy')
@@ -45,11 +50,11 @@ def load_chen_16():
     return W1, b1
 
 
-W1, b1 = load_chen_16()
+W1, b1 = init_chen()
 
 
-def chen_16(patch):
-    """ Return descriptor for 16x16x3 patches. """
+def compute_chen(patch):
+    """ Return descriptor for a 16x16 grayscale patch. """
     patch_size = patch.shape[0]
     data = np.expand_dims(patch.reshape(patch_size * patch_size * 3), axis=1)
     z2 = W1.dot(data) + np.tile(b1, (1, 1)).transpose()
@@ -57,10 +62,18 @@ def chen_16(patch):
     return patch_descr
 
 
-# TODO
 # # SIFT for grayscale images
 #
-# def cv_sift():
+# def init_cv_sift():
 #     keypoint = cv.KeyPoint((patch_size - 1) / 2, (patch_size - 1) / 2, _size=patch_size)
 #     keypoints = [keypoint]
 #     sift = cv.xfeatures2d.SIFT_create()
+#     return sift, keypoints
+#
+#
+# cv_sift_16, cv_keypoints_16 = init_cv_sift()
+#
+#
+# def compute_cv_sift_16(patch):
+#     _, patch_descr = cv_sift_16.compute(patch, cv_keypoints_16)
+#     return patch_descr

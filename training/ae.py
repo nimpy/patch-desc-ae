@@ -14,7 +14,8 @@ import random
 
 import imageio
 
-img_width, img_height = 16, 16
+patch_size = 16
+nb_channels = 3
 
 nb_epoch = 50
 batch_size = 32
@@ -51,9 +52,9 @@ def load_data():
 
 def create_model_128():
     if K.image_data_format() == 'channels_first':
-        input_shape = (3, img_width, img_height)
+        input_shape = (nb_channels, patch_size, patch_size)
     else:
-        input_shape = (img_width, img_height, 3)
+        input_shape = (patch_size, patch_size, nb_channels)
 
     input_img = Input(shape=input_shape)
 
@@ -81,14 +82,14 @@ def create_model_128():
 
     autoencoder.summary()
 
-    return autoencoder
+    return autoencoder, input_img, encoded
 
 
 def create_model_32():
     if K.image_data_format() == 'channels_first':
-        input_shape = (3, img_width, img_height)
+        input_shape = (nb_channels, patch_size, patch_size)
     else:
-        input_shape = (img_width, img_height, 3)
+        input_shape = (patch_size, patch_size, nb_channels)
 
     input_img = Input(shape=input_shape)
 
@@ -105,12 +106,12 @@ def create_model_32():
     x = UpSampling2D((2, 2))(x)
     x = Conv2D(16, (3, 3), activation="relu", padding="same")(x)
     x = UpSampling2D((2, 2))(x)
-    decoded = Conv2D(3, (3, 3), activation="sigmoid", padding="same")(x)
+    decoded = Conv2D(nb_channels, (3, 3), activation="sigmoid", padding="same")(x)
 
     autoencoder = Model(input_img, decoded)
     autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 
-    return autoencoder
+    return autoencoder, input_img, encoded
 
 
 def create_image_generators():
@@ -124,16 +125,66 @@ def create_image_generators():
 
     train_generator = train_datagen.flow_from_directory(
         train_data_dir,
-        target_size=(img_width, img_height),
+        target_size=(patch_size, patch_size),
         batch_size=batch_size,
         class_mode=None)
 
     validation_generator = test_datagen.flow_from_directory(
         validation_data_dir,
-        target_size=(img_width, img_height),
+        target_size=(patch_size, patch_size),
         batch_size=batch_size,
         class_mode=None)
     return train_generator, validation_generator
+
+
+def extract_and_save_encoder(autoencoder, model_version, input_img, encoded):
+
+    encoder = Model(input_img, encoded)
+    encoder.compile(optimizer='adadelta', loss='binary_crossentropy')
+    for i in range(len(encoder.layers)):
+        encoder.get_layer(index=i).set_weights(autoencoder.get_layer(index=i).get_weights())
+
+    encoder.summary()
+
+    encoder.save(base_dir + '/encoder' + model_version + '.h5')
+
+
+def visualise_the_results(autoencoder):
+    images_directory = base_dir + '/tiny_test16/class0'
+    files = os.listdir(images_directory)
+    files.sort()
+
+    images = []
+
+    counter = 0
+
+    for file in files:
+        counter += 1
+        if counter > 100:
+            break
+        if not file.startswith('.'):
+            # print(file)
+
+            img = load_img(images_directory + '/' + file, False, target_size=(patch_size, patch_size))
+            x = img_to_array(img)
+
+            x = np.expand_dims(x, axis=0)
+            images.append(x)
+
+    images = np.array(images).reshape(np.array(images).shape[0], patch_size, patch_size, nb_channels)
+    images /= 255
+    predictions = autoencoder.predict_on_batch(np.array(images))
+    print("predictions: ")
+    for i, im1 in enumerate(images):
+        im_1 = im1.reshape((patch_size, patch_size, nb_channels))
+        plt.imshow(im_1, interpolation='nearest')
+        plt.show()
+
+        pred_1 = predictions[i].reshape((patch_size, patch_size, nb_channels))
+        plt.imshow(pred_1, interpolation='nearest')
+        plt.show()
+
+        print("next")
 
 
 def train_autoencoder(model_version):
@@ -141,9 +192,9 @@ def train_autoencoder(model_version):
     nb_train_samples, nb_validation_samples = load_data()
     train_generator, validation_generator = create_image_generators()
 
-    autoencoder = create_model_128()
+    autoencoder, input_img, encoded = create_model_128()
 
-    # or, alternatively:
+    # or, if doing a retraining:
     # autoencoder = load_model(base_dir + '/autoencoder' + model_version_pretrained + '.h5')
 
 
@@ -165,8 +216,14 @@ def train_autoencoder(model_version):
 
     # autoencoder = load_model(base_dir + '/autoencoder' + model_version + '.h5')
 
+    extract_and_save_encoder(autoencoder, model_version, input_img, encoded)
+
+    visualise_the_results(autoencoder)
+
+
 def main():
     train_autoencoder('proba_temp0')
+
 
 if __name__ == "__main__":
     main()

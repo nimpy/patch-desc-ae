@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2555d8f-0135-44ed-a0a5-c36782a6bb45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/niaki.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evaluation/chen_descriptor_training.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evaluation/chen_descriptors.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/training/ae.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/comparisons.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/noise.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/partially_obscuring.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/chen_descriptors.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/other_descriptors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training/ae.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/ae.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/training/ae.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="849">
-              <caret line="168" column="34" selection-start-line="168" selection-start-column="34" selection-end-line="168" selection-end-column="34" />
+            <state relative-caret-position="-784">
+              <caret line="138" selection-start-line="138" selection-end-line="138" />
               <folding>
                 <element signature="e#0#88#0" expanded="true" />
               </folding>
@@ -32,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/evaluation/chen_descriptors.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/evaluation/other_descriptors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="906">
-              <caret line="66" selection-start-line="66" selection-end-line="66" />
+            <state relative-caret-position="52">
+              <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -47,7 +41,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluation/chen_descriptor_training.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="931">
+            <state relative-caret-position="2356">
               <caret line="239" column="10" selection-start-line="230" selection-end-line="239" selection-end-column="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -77,16 +71,16 @@
         <option value="$PROJECT_DIR$/evaluation/other_descs.py" />
         <option value="$PROJECT_DIR$/evaluation/other_descriptors.py" />
         <option value="$PROJECT_DIR$/evaluation/chen_descriptor_training.py" />
-        <option value="$PROJECT_DIR$/evaluation/chen_descriptors.py" />
         <option value="$PROJECT_DIR$/training/ae_128.py" />
         <option value="$PROJECT_DIR$/training/ae.py" />
+        <option value="$PROJECT_DIR$/evaluation/chen_descriptors.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1920" />
-    <option name="width" value="2554" />
-    <option name="height" value="1440" />
+    <option name="x" value="1919" />
+    <option name="width" value="2562" />
+    <option name="height" value="1441" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -205,7 +199,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24911313" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24911313" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
@@ -213,7 +207,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.18126428" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16603199" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -247,18 +241,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/evaluation/chen_descriptor_training.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="931">
+        <state relative-caret-position="2356">
           <caret line="239" column="10" selection-start-line="230" selection-end-line="239" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluation/chen_descriptors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="906">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -267,10 +251,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/training/ae.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="849">
-          <caret line="168" column="34" selection-start-line="168" selection-start-column="34" selection-end-line="168" selection-end-column="34" />
+        <state relative-caret-position="-784">
+          <caret line="138" selection-start-line="138" selection-end-line="138" />
           <folding>
             <element signature="e#0#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation/other_descriptors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="33" column="22" selection-start-line="33" selection-start-column="22" selection-end-line="33" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
