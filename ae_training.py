@@ -1,4 +1,4 @@
-from keras.layers import Input, Dense, Convolution2D, MaxPooling2D, UpSampling2D, Conv2D
+from keras.layers import Input, MaxPooling2D, UpSampling2D, Conv2D
 from keras.models import Model, load_model
 from keras.preprocessing.image import ImageDataGenerator, img_to_array, load_img
 from keras import backend as K
@@ -7,12 +7,8 @@ import keras
 import numpy as np
 import matplotlib.pyplot as plt
 
-from os import listdir
-from os import system
 import os
-import random
 
-import imageio
 
 patch_size = 16
 nb_channels = 3
