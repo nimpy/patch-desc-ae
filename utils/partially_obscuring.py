@@ -157,3 +157,21 @@ def mask_ising_model(patch_size=16, iteration=4):
                 mask = 1 - mask
 
     return mask
+
+
+def mask_of_specific_percentage(min_perc, max_perc, mask_function, patch_size=16):
+    mask_perc = 0
+    while not (mask_perc > min_perc and mask_perc <= max_perc):
+        mask = mask_function(patch_size=patch_size)
+        mask_perc = compute_mask_percentage(mask)
+    return mask
+
+
+def compute_mask_percentage(mask):
+    mask_count = 0
+    for i in range(mask.shape[0]):
+        for j in range(mask.shape[1]):
+            if mask[i,j] == 1:
+                mask_count += 1
+    return mask_count / (mask.shape[0] * mask.shape[1])
+

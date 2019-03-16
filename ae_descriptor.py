@@ -4,7 +4,7 @@ from keras.models import Model, load_model
 import numpy as np
 
 nr_channels = 3
-models_dir = 'models'
+models_dir = '/home/niaki/PycharmProjects/patch-desc-ae/models'
 
 
 def init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_size=16):
@@ -42,8 +42,8 @@ def init_descr_128(patch_size=16):
     return init_descr(model_version=128, nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_size=patch_size)
 
 
-encoder32 = init_descr_32(patch_size=16)
-encoder128 = init_descr_128(patch_size=16)
+# encoder32 = init_descr_32(patch_size=16)
+# encoder128 = init_descr_128(patch_size=16)
 
 
 def compute_descriptor(patch, model):

@@ -17,7 +17,7 @@ def example_use_descrs():
     print("Example usage of descriptors...")
 
     patch_size = 16
-    image = imageio.imread('/home/niaki/Downloads/Lenna.png')
+    image = imageio.imread('images/Lenna.png')
     image = image / 255.
     x_coord = 26
     y_coord = 473
