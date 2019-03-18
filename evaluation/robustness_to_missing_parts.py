@@ -13,11 +13,11 @@ import matplotlib
 image_path = '/home/niaki/PycharmProjects/patch-desc-ae/images/Lenna.png'
 patch_size = 16
 nr_similar_patches = 40
-query_stride = 100
+query_stride = 32
 compare_stride = 8
 eps = 0.0001
 results_dir = '/home/niaki/PycharmProjects/patch-desc-ae/results'
-
+results_version = '4'
 
 image = imageio.imread(image_path)
 image_height = image.shape[0]
@@ -182,7 +182,7 @@ def compute_SSDs(which_descs, mask_percs):
 
     mask_percs_string = "_".join(str(mask_perc) for mask_perc in mask_percs)
     which_descs_string = "_".join(str(which_desc) for which_desc in which_descs)
-    ssds_by_model_file_path = results_dir + '/ssds_missing_percentages_' + mask_percs_string + '__descrs_' + which_descs_string + '__' + str(total_nr_query_patches) + '_query_patches.pkl'
+    ssds_by_model_file_path = results_dir + '/ssds_missing_percentages_' + mask_percs_string + '__descrs_' + which_descs_string + '__' + str(total_nr_query_patches) + '_query_patches__' + results_version + '.pkl'
 
     with open(ssds_by_model_file_path, 'wb') as f:
         pickle.dump(ssds_by_model, f)
@@ -219,7 +219,7 @@ def plot_SSDs_for_4_descrs(ssds_by_model, mask_percs, ssds_by_model_plot_file_pa
             ax.set_ylabel('SSD', fontsize=23)
         ax.set_yscale('log')
         ax.set_title('Missing ' + str(int(mask_perc * 100)) + '%')
-        ax.set_ylim([18000, 12000000])
+        ax.set_ylim([7500, 20000000])
         ax.boxplot(data, labels=labels)#, fontsize=18)
 
     fig.subplots_adjust(left=0.1, bottom=None, right=0.9, top=None, wspace=0.35, hspace=None)
@@ -241,10 +241,12 @@ def compute_and_plot_SSDs():
 
 
 def main():
-    ssds_by_model_plot_file_path = '/home/niaki/PycharmProjects/patch-desc-ae/results/ssds_missing_percentages_0_0.1_0.2_0.3_0.4_0.5__descrs_0_1_2_3__25_query_patches'
+    # compute_SSDs(0, 0)
+
+    ssds_by_model_plot_file_path = '/home/niaki/PycharmProjects/patch-desc-ae/results/ssds_missing_percentages_0_0.1_0.2_0.3_0.4_0.5__descrs_0_1_2_3__256_query_patches_3'
 
     mask_percs = [0, 0.1, 0.2, 0.3, 0.4, 0.5]
-    ssds_by_model_file_path = '/home/niaki/PycharmProjects/patch-desc-ae/results/ssds_missing_percentages_0_0.1_0.2_0.3_0.4_0.5__descrs_0_1_2_3__25_query_patches.pkl'
+    ssds_by_model_file_path = '/home/niaki/PycharmProjects/patch-desc-ae/results/ssds_missing_percentages_0_0.1_0.2_0.3_0.4_0.5__descrs_0_1_2_3__256_query_patches_3.pkl'
     with open(ssds_by_model_file_path, 'rb') as f:
         ssds_by_model = pickle.load(f)
     plot_SSDs_for_4_descrs(ssds_by_model, mask_percs, ssds_by_model_plot_file_path)
