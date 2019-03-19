@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2555d8f-0135-44ed-a0a5-c36782a6bb45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evaluation/denoising.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/robustness_to_missing_parts.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/robustness_to_missing_parts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation/robustness_to_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/robustness_to_noise.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/comparisons.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/comparisons.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ae_descriptor.py" beforeDir="false" afterPath="$PROJECT_DIR$/ae_descriptor.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/script_running_multiple_tests.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluation/robustness_to_missing_parts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
-              <caret line="244" selection-start-line="244" selection-end-line="244" />
+            <state relative-caret-position="3610">
+              <caret line="200" selection-start-line="200" selection-end-line="201" selection-end-column="39" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
               </folding>
@@ -40,20 +39,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluation/robustness_to_noise.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="175" column="38" lean-forward="true" selection-start-line="175" selection-start-column="38" selection-end-line="175" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#75#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="215" column="39" lean-forward="true" selection-start-line="215" selection-start-column="39" selection-end-line="215" selection-end-column="39" />
+            <state relative-caret-position="3135">
+              <caret line="175" column="38" selection-start-line="175" selection-start-column="38" selection-end-line="175" selection-end-column="38" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
               </folding>
@@ -62,10 +49,58 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#75#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="19" column="18" selection-start-line="19" selection-end-line="19" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#75#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/evaluation/denoising.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="23" column="12" lean-forward="true" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#59#0" expanded="true" />
+                <element signature="e#1488#4768#0" />
+                <element signature="e#5798#9179#0" />
+                <element signature="e#4233#5903#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/envs/tensorflow/lib/python3.6/site-packages/keras/engine/training_utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2413">
+              <caret line="136" selection-start-line="136" selection-end-line="136" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/other_descriptors/other_descriptors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-149">
-              <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+            <state relative-caret-position="19">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -76,20 +111,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ae_descriptor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-672">
-              <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+            <state relative-caret-position="744">
+              <caret line="100" column="81" lean-forward="true" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="81" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/partially_obscuring.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="151" column="14" selection-start-line="151" selection-start-column="14" selection-end-line="151" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -121,10 +147,17 @@
       <find>perc</find>
       <find>image</find>
       <find>results_version</find>
-      <find>load_model</find>
-      <find>255</find>
       <find>nr_similar_patches =</find>
       <find>which</find>
+      <find>mask_random_border_rectangle</find>
+      <find>mask_random_corner_rectangle</find>
+      <find>255</find>
+      <find>nois</find>
+      <find>random</find>
+      <find>mask =</find>
+      <find>pickl</find>
+      <find>nr_</find>
+      <find>load_model</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,14 +181,16 @@
         <option value="$PROJECT_DIR$/utils/partially_obscuring.py" />
         <option value="$PROJECT_DIR$/script_running_multiple_tests.py" />
         <option value="$PROJECT_DIR$/utils/comparisons.py" />
-        <option value="$PROJECT_DIR$/ae_descriptor.py" />
         <option value="$PROJECT_DIR$/evaluation/robustness_to_missing_parts.py" />
         <option value="$PROJECT_DIR$/evaluation/robustness_to_noise.py" />
         <option value="$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py" />
+        <option value="$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py" />
+        <option value="$PROJECT_DIR$/ae_descriptor.py" />
+        <option value="$PROJECT_DIR$/evaluation/denoising.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1919" />
     <option name="width" value="2562" />
     <option name="height" value="1441" />
@@ -177,11 +212,6 @@
               <item name="patch-desc-ae" type="b2602c69:ProjectViewProjectNode" />
               <item name="patch-desc-ae" type="462c0819:PsiDirectoryNode" />
               <item name="evaluation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="patch-desc-ae" type="b2602c69:ProjectViewProjectNode" />
-              <item name="patch-desc-ae" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="patch-desc-ae" type="b2602c69:ProjectViewProjectNode" />
@@ -228,7 +258,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.visualising_retrieval_with_noise">
+  <component name="RunManager" selected="Python.denoising">
+    <configuration name="denoising" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="patch-desc-ae" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/evaluation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation/denoising.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="robustness_to_missing_parts" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="patch-desc-ae" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -271,7 +322,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="script_running_multiple_tests" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="visualising_retrieval_with_missing_parts" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="patch-desc-ae" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -279,32 +330,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/evaluation" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/script_running_multiple_tests.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="testing" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="patch-desc-ae" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -336,11 +366,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.denoising" />
+        <item itemvalue="Python.visualising_retrieval_with_missing_parts" />
         <item itemvalue="Python.visualising_retrieval_with_noise" />
         <item itemvalue="Python.robustness_to_noise" />
         <item itemvalue="Python.robustness_to_missing_parts" />
-        <item itemvalue="Python.script_running_multiple_tests" />
-        <item itemvalue="Python.testing" />
       </list>
     </recent_temporary>
   </component>
@@ -362,10 +392,10 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.78969073" visible="true" weight="0.1336224" />
-      <window_info id="Structure" order="2" sideWeight="0.21030928" side_tool="true" visible="true" weight="0.1336224" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7886598" visible="true" weight="0.1336224" />
+      <window_info id="Structure" order="2" sideWeight="0.2113402" side_tool="true" visible="true" weight="0.1336224" />
       <window_info anchor="bottom" id="Terminal" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5001971" side_tool="true" visible="true" weight="0.2612338" />
+      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5001971" side_tool="true" weight="0.2612338" />
       <window_info anchor="bottom" id="Python Console" order="2" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32977912" />
@@ -426,24 +456,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/partially_obscuring.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="151" column="14" selection-start-line="151" selection-start-column="14" selection-end-line="151" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/tensorflow/lib/python3.6/site-packages/matplotlib/figure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3732">
           <caret line="236" selection-start-line="236" selection-end-line="236" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script_running_multiple_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -454,33 +470,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ae_descriptor.py">
+    <entry file="file://$PROJECT_DIR$/utils/partially_obscuring.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-672">
-          <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="73">
+          <caret line="140" column="26" selection-start-line="140" selection-start-column="20" selection-end-line="140" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/other_descriptors/other_descriptors.py">
+    <entry file="file://$PROJECT_DIR$/script_running_multiple_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-149">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="228">
+          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/evaluation/robustness_to_missing_parts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="244" selection-start-line="244" selection-end-line="244" />
+        <state relative-caret-position="3610">
+          <caret line="200" selection-start-line="200" selection-end-line="201" selection-end-column="39" />
           <folding>
             <element signature="e#0#75#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation/robustness_to_noise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3135">
+          <caret line="175" column="38" selection-start-line="175" selection-start-column="38" selection-end-line="175" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="19" column="18" selection-start-line="19" selection-end-line="19" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/envs/tensorflow/lib/python3.6/site-packages/keras/engine/training_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2413">
+          <caret line="136" selection-start-line="136" selection-end-line="136" />
         </state>
       </provider>
     </entry>
@@ -491,22 +538,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evaluation/robustness_to_noise.py">
+    <entry file="file://$PROJECT_DIR$/ae_descriptor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="175" column="38" lean-forward="true" selection-start-line="175" selection-start-column="38" selection-end-line="175" selection-end-column="38" />
+        <state relative-caret-position="744">
+          <caret line="100" column="81" lean-forward="true" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="81" />
           <folding>
-            <element signature="e#0#75#0" expanded="true" />
+            <element signature="e#0#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py">
+    <entry file="file://$PROJECT_DIR$/other_descriptors/other_descriptors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="215" column="39" lean-forward="true" selection-start-line="215" selection-start-column="39" selection-end-line="215" selection-end-column="39" />
+        <state relative-caret-position="19">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
           <folding>
-            <element signature="e#0#75#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation/denoising.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" column="12" lean-forward="true" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#59#0" expanded="true" />
+            <element signature="e#1488#4768#0" />
+            <element signature="e#5798#9179#0" />
+            <element signature="e#4233#5903#0" />
           </folding>
         </state>
       </provider>

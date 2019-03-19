@@ -70,7 +70,7 @@ def init_IR(image_height, image_width, patch_size, model_version=32, nr_feature_
         encoder_IR.get_layer(index=i).set_weights(encoder_trained.get_layer(index=i).get_weights())
 
 
-    input_shape_IR = (patch_size, patch_size, 8)
+    input_shape_IR = (patch_size, patch_size, nr_feature_maps_layer23)
     input_IR = Input(shape=input_shape_IR)
 
     encoded_mp = MaxPooling2D((8, 8), padding="same")(input_IR)
