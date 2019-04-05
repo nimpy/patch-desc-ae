@@ -39,9 +39,10 @@ encoder32 = init_descr_32(16)
 encoder128 = init_descr_128(16)
 
 random_seed = 120
+np.random.seed(random_seed)
 
 # mask = mask_random_border_rectangle(patch_size=16, mask_percentage_per_axis_mu=0.3, mask_percentage_per_axis_sigma=0.1)
-mask = mask_of_specific_percentage(0.0, 0.15, mask_random_border_rectangle)
+mask = mask_of_specific_percentage(0.19, 0.26, mask_random_border_rectangle)
 # with open("/home/niaki/Downloads/mask_10", 'wb') as f:
 #     pickle.dump(mask, f)
 
@@ -71,7 +72,8 @@ def overlay_image_with_mask(image, mask):
     for i in range(image.shape[0]):
         for j in range(image.shape[1]):
             if mask[i, j] == 1:
-                overlayed_image[i, j, :] = image[i, j, :] * 0.5
+                overlayed_image[i, j, :] = 0
+                # overlayed_image[i, j, :] = image[i, j, :] * 0.5
     return overlayed_image
 
 
@@ -175,7 +177,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
         # x_query) + "_" + str(y_query) + "_clean.pdf", bbox_inches='tight')
     # fig.savefig("/home/niaki/PycharmProjects/patch-desc-ae/results/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_missing" + str(computed_mask_perc) + ".pdf", bbox_inches='tight')
 
-    fig.savefig("/home/niaki/Downloads/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_missing" + str(computed_mask_perc) + "_0.pdf", bbox_inches='tight')
+    fig.savefig("/home/niaki/Downloads/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_missing" + str(computed_mask_perc) + "_blackoverlay.pdf", bbox_inches='tight')
     fig.show()
 
     plt.show(block=True)
@@ -271,8 +273,8 @@ def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
 
 
 def main():
-    x_queries = [463] #[9, 58, 315, 26]
-    y_queries = [12] #[12, 233, 101, 473]
+    x_queries = [299] #[9, 58, 315, 26]
+    y_queries = [190] #[12, 233, 101, 473]
 
     results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1)
     results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2)
