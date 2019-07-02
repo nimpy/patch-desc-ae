@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2555d8f-0135-44ed-a0a5-c36782a6bb45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/evaluation/ROC.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py" beforeDir="false" afterPath="$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="214" selection-start-line="214" selection-end-line="227" selection-end-column="10" />
+            <state relative-caret-position="3757">
+              <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
               </folding>
@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="-3710">
+              <caret line="53" column="25" lean-forward="true" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
               </folding>
@@ -65,8 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluation/ROC.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="156" column="57" selection-start-line="156" selection-start-column="57" selection-end-line="156" selection-end-column="57" />
+            <state>
               <folding>
                 <element signature="e#0#75#0" expanded="true" />
               </folding>
@@ -110,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ae_descriptor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1843">
+            <state relative-caret-position="1900">
               <caret line="100" column="81" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="81" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
@@ -161,6 +160,9 @@
       <find>query_patch_descr</find>
       <find>seed</find>
       <find>:nearest_patches_nb</find>
+      <find>save</find>
+      <find>noise</find>
+      <find>db</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,25 +188,25 @@
         <option value="$PROJECT_DIR$/utils/comparisons.py" />
         <option value="$PROJECT_DIR$/evaluation/robustness_to_missing_parts.py" />
         <option value="$PROJECT_DIR$/evaluation/robustness_to_noise.py" />
-        <option value="$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py" />
         <option value="$PROJECT_DIR$/ae_descriptor.py" />
         <option value="$PROJECT_DIR$/evaluation/denoising.py" />
         <option value="$PROJECT_DIR$/evaluation/ROC.py" />
         <option value="$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py" />
+        <option value="$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1919" />
-    <option name="width" value="2562" />
-    <option name="height" value="1441" />
+    <option name="x" value="-1" />
+    <option name="y" value="24" />
+    <option name="width" value="1922" />
+    <option name="height" value="1033" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,10 +238,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -263,7 +267,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ROC">
+  <component name="RunManager" selected="Python.visualising_retrieval_with_missing_parts">
     <configuration name="ROC" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="patch-desc-ae" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -371,10 +375,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ROC" />
         <item itemvalue="Python.visualising_retrieval_with_missing_parts" />
-        <item itemvalue="Python.denoising" />
         <item itemvalue="Python.visualising_retrieval_with_noise" />
+        <item itemvalue="Python.ROC" />
+        <item itemvalue="Python.denoising" />
         <item itemvalue="Python.robustness_to_noise" />
       </list>
     </recent_temporary>
@@ -393,19 +397,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1919" y="0" width="2562" height="1441" extended-state="6" />
-    <editor active="true" />
+    <frame x="-1" y="24" width="1922" height="1033" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7876289" visible="true" weight="0.1336224" />
-      <window_info id="Structure" order="2" sideWeight="0.21237114" side_tool="true" visible="true" weight="0.1336224" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.7834254" visible="true" weight="0.13284133" />
+      <window_info id="Structure" order="2" sideWeight="0.21657458" side_tool="true" visible="true" weight="0.13284133" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5001971" side_tool="true" weight="0.2612338" />
       <window_info anchor="bottom" id="Python Console" order="2" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32977912" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.32977912" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" sideWeight="0.49980292" visible="true" weight="0.2612338" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49980292" weight="0.1878453" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.25133282" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -509,6 +512,15 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation/ROC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#75#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evaluation/denoising.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -538,7 +550,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ae_descriptor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1843">
+        <state relative-caret-position="1900">
           <caret line="100" column="81" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="81" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
@@ -555,18 +567,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_noise.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="214" selection-start-line="214" selection-end-line="227" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#75#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluation/ROC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="156" column="57" selection-start-line="156" selection-start-column="57" selection-end-line="156" selection-end-column="57" />
+        <state relative-caret-position="3757">
+          <caret line="200" lean-forward="true" selection-start-line="200" selection-end-line="200" />
           <folding>
             <element signature="e#0#75#0" expanded="true" />
           </folding>
@@ -575,8 +577,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/evaluation/visualising_retrieval_with_missing_parts.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="-3710">
+          <caret line="53" column="25" lean-forward="true" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
           <folding>
             <element signature="e#0#75#0" expanded="true" />
           </folding>

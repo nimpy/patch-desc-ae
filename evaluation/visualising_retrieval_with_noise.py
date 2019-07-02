@@ -54,7 +54,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
     x_offset_left = -2.5
     y_offset_left = 2.5
 
-    fig = plt.figure(figsize=(17, 10))
+    fig = plt.figure(figsize=(17, 8))
 
     total_nr_query_patches = len(x_queries)
 
@@ -88,7 +88,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             ax.axis('off')
             if i == 0:
                 ax.text(x_offset_left, 1, 'proposed v128', rotation=90, fontsize=font_size)
-            ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
+            # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
         for i in range(nr_similar_patches):
@@ -105,7 +105,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             ax.axis('off')
             if i == 0:
                 ax.text(x_offset_left, y_offset_left, 'Chen et al.', rotation=90, fontsize=font_size)
-            ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
+            # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
         for i in range(nr_similar_patches):
@@ -122,7 +122,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             ax.axis('off')
             if i == 0:
                 ax.text(x_offset_left, y_offset_left, 'exhaustive', rotation=90, fontsize=font_size)
-            ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
+            # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
         counter_query_patches += 1
@@ -213,8 +213,8 @@ def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
 
 
 def main():
-    x_queries = [359] #[9, 58, 315, 26]
-    y_queries = [108] #[12, 233, 101, 473]
+    x_queries = [26] #[9, 58, 315, 26]
+    y_queries = [473] #[12, 233, 101, 473]
 
     results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1)
     results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2)
