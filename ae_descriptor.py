@@ -4,17 +4,17 @@ from keras.models import Model, load_model
 import numpy as np
 
 nr_channels = 3
-models_dir = '/home/niaki/PycharmProjects/patch-desc-ae/models'
+models_dir = '/home/niaki/Projects/patch-desc-ae/models'
 
 
-def init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_size=16):
+def init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_height=16, patch_width=16):
 
     encoder_trained = load_model(models_dir + '/encoder_' + str(model_version) + '.h5')
 
-    if patch_size == 16:
+    if patch_height == 16 and patch_width == 16:
         return encoder_trained
     else:
-        input_shape = (patch_size, patch_size, nr_channels)
+        input_shape = (patch_height, patch_width, nr_channels)
 
         input_img = Input(shape=input_shape)
 
@@ -34,12 +34,12 @@ def init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_laye
 # the only two parameter options available (i.e. trained)
 # -- the two versions of descriptor using 32 and 128 units for the code layer
 
-def init_descr_32(patch_size=16):
-    return init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_size=patch_size)
+def init_descr_32(patch_height=16, patch_width=16):
+    return init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_height=patch_height, patch_width=patch_width)
 
 
-def init_descr_128(patch_size=16):
-    return init_descr(model_version=128, nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_size=patch_size)
+def init_descr_128(patch_height=16, patch_width=16):
+    return init_descr(model_version=128, nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_height=patch_height, patch_width=patch_width)
 
 
 # encoder32 = init_descr_32(patch_size=16)
