@@ -5,7 +5,7 @@ from other_descriptors.chen_descriptor_training import sigmoid
 
 patch_size = 16
 
-models_dir = '/home/niaki/PycharmProjects/patch-desc-ae/other_descriptors'
+models_dir = '/home/niaki/Projects/patch-desc-ae/other_descriptors'
 
 # Chen et al. version for RGB images
 
@@ -44,9 +44,9 @@ def init_chen():
     theta = np.load(models_dir + '/encoderChenEtAl_400it.npy')
 
     W1 = theta[0:hidden_size * input_size].reshape(hidden_size, input_size)
-    W2 = theta[hidden_size * input_size:2 * hidden_size * input_size].reshape(input_size, hidden_size)
+    # W2 = theta[hidden_size * input_size:2 * hidden_size * input_size].reshape(input_size, hidden_size)
     b1 = theta[2 * hidden_size * input_size:2 * hidden_size * input_size + hidden_size]
-    b2 = theta[2 * hidden_size * input_size + hidden_size:]
+    # b2 = theta[2 * hidden_size * input_size + hidden_size:]
 
     return W1, b1
 

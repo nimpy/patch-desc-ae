@@ -1,6 +1,6 @@
 from ae_descriptor import init_descr_32, init_descr_128, compute_descriptor
 from other_descriptors.other_descriptors import compute_chen_rgb
-from utils.comparisons import calculate_ssd, calculate_psnr
+from utils.comparisons import calculate_ssd
 from utils.noise import add_gaussian_noise
 
 import imageio
@@ -9,9 +9,12 @@ import sys
 import pickle
 import matplotlib.pyplot as plt
 import matplotlib
+import datetime
 
 
-image_path = '/home/niaki/Code/Lenna.png'
+# image_path = '/home/niaki/Downloads/Lenna.png'
+# image_path = '/scratch/data/panel13/panel13_cropped2.png'
+image_path = '/home/niaki/Downloads/clean.jpg'
 
 patch_size = 16
 patch_width = patch_size
@@ -30,7 +33,7 @@ image_height = image.shape[0]
 image_width = image.shape[1]
 psnr_max_value = 255
 
-noise_level = 20
+noise_level = 10
 image_noisy = add_gaussian_noise(image, sigma=noise_level)
 
 
@@ -52,7 +55,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
     y_offset_under = -0.2
     font_size = 18
     x_offset_left = -2.5
-    y_offset_left = 2.5
+    y_offset_left = 15
 
     fig = plt.figure(figsize=(17, 8))
 
@@ -78,16 +81,17 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             x_compare = results_patches_x_coords_0[counter_query_patches][i]
             y_compare = results_patches_y_coords_0[counter_query_patches][i]
 
-            psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
-                                  image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
-                                  max_value=psnr_max_value)
+            # psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
+            #                       image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
+            #                       max_value=psnr_max_value)
 
             patch_compare = image_noisy[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :]
 
             ax = fig.add_subplot(rows, columns, (counter_query_patches * 3) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
             if i == 0:
-                ax.text(x_offset_left, 1, 'proposed v128', rotation=90, fontsize=font_size)
+                # ax.text(x_offset_left, 1, 'proposed v128', rotation=90, fontsize=font_size)
+                ax.text(x_offset_left, y_offset_left, 'proposed v128', rotation=90, fontsize=font_size)  # y_offset_left
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -95,16 +99,16 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             x_compare = results_patches_x_coords_1[counter_query_patches][i]
             y_compare = results_patches_y_coords_1[counter_query_patches][i]
 
-            psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
-                                  image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
-                                  max_value=psnr_max_value)
+            # psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
+            #                       image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
+            #                       max_value=psnr_max_value)
 
             patch_compare = image_noisy[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :]
 
             ax = fig.add_subplot(rows, columns, ((counter_query_patches * 3) + 1) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
             if i == 0:
-                ax.text(x_offset_left, y_offset_left, 'Chen et al.', rotation=90, fontsize=font_size)
+                ax.text(x_offset_left, y_offset_left - 2, 'Chen et al.', rotation=90, fontsize=font_size)
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -112,22 +116,26 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             x_compare = results_patches_x_coords_2[counter_query_patches][i]
             y_compare = results_patches_y_coords_2[counter_query_patches][i]
 
-            psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
-                                  image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
-                                  max_value=psnr_max_value)
+            # psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
+            #                       image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
+            #                       max_value=psnr_max_value)
 
             patch_compare = image_noisy[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size]
 
             ax = fig.add_subplot(rows, columns, ((counter_query_patches * 3) + 2) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
             if i == 0:
-                ax.text(x_offset_left, y_offset_left, 'exhaustive', rotation=90, fontsize=font_size)
+                ax.text(x_offset_left, y_offset_left - 2, 'exhaustive', rotation=90, fontsize=font_size)
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
         counter_query_patches += 1
 
-    fig.savefig("/home/niaki/PycharmProjects/patch-desc-ae/results/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_noise" + str(noise_level) + ".pdf", bbox_inches='tight')
+    # fig.savefig("/home/niaki/PycharmProjects/patch-desc-ae/results/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_noise" + str(noise_level) + ".pdf", bbox_inches='tight')
+    fig.savefig("/home/niaki/Downloads/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(
+        y_query) + "_noise" + str(noise_level) + "_" + datetime.datetime.now().strftime(
+        "%Y%m%d_%H%M%S") + ".pdf", bbox_inches='tight')
+
     fig.show()
 
     plt.show(block=True)
@@ -213,8 +221,8 @@ def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
 
 
 def main():
-    x_queries = [26] #[9, 58, 315, 26]
-    y_queries = [473] #[12, 233, 101, 473]
+    x_queries = [1185] #[9, 58, 315, 26]
+    y_queries = [570] #[12, 233, 101, 473]
 
     results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1)
     results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2)

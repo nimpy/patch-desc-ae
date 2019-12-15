@@ -9,7 +9,7 @@ models_dir = '/home/niaki/Projects/patch-desc-ae/models'
 
 def init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_height=16, patch_width=16):
 
-    encoder_trained = load_model(models_dir + '/encoder_' + str(model_version) + '.h5')
+    encoder_trained = load_model(models_dir + '/encoder' + str(model_version) + '.h5')
 
     if patch_height == 16 and patch_width == 16:
         return encoder_trained
@@ -54,7 +54,7 @@ def compute_descriptor(patch, model):
 # and a descriptor that transforms an patch from intermediate representation into the patch descriptor
 def init_IR(image_height, image_width, patch_size, model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8):
 
-    encoder_trained = load_model(models_dir + '/encoder_' + str(model_version) + '.h5')
+    encoder_trained = load_model(models_dir + '/encoder' + str(model_version) + '.h5')
 
     input_shape_img = (image_height, image_width, nr_channels)
 

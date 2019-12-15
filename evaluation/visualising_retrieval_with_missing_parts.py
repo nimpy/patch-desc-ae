@@ -1,6 +1,6 @@
-from ae_descriptor import init_descr_32, init_descr_128, compute_descriptor
+from ae_descriptor import init_descr_32, init_descr_128, init_descr, compute_descriptor
 from other_descriptors.other_descriptors import compute_chen_rgb
-from utils.comparisons import calculate_ssd, calculate_psnr
+from utils.comparisons import calculate_ssd
 from utils.partially_obscuring import mask_random_corner_rectangle, mask_random_border_rectangle, mask_ising_model, compute_mask_percentage, mask_of_specific_percentage
 
 import imageio
@@ -9,49 +9,53 @@ import sys
 import pickle
 import matplotlib.pyplot as plt
 import matplotlib
+import datetime
 
-
-image_path = '/home/niaki/Code/Lenna.png'
-
-patch_size = 16
-patch_width = patch_size
-patch_height = patch_size
-
-nr_similar_patches = 5
-query_stride = 100
-compare_stride = 8
-eps = 0.0001
-
-
-image = imageio.imread(image_path)
-image_height = image.shape[0]
-image_width = image.shape[1]
-psnr_max_value = 255
-
+# # image_path = '/scratch/data/mystic_lamb/mystic_lamb_cropped2.png'
+# # image_path = '/home/niaki/Downloads/Lenna.png'
+# image_path = '/home/niaki/Downloads/barbara.bmp'
+#
+# patch_size = 16
+# patch_width = patch_size
+# patch_height = patch_size
+#
+# nr_similar_patches = 5
+# query_stride = 100
+# compare_stride = 8
+# eps = 0.0001
+#
+#
+# image = imageio.imread(image_path)
+# image_height = image.shape[0]
+# image_width = image.shape[1]
+# psnr_max_value = 255
+#
 # image = image / 255.
 # psnr_max_value = 1
+#
+#
+# missing_perc = 0
+#
+#
+# encoder32 = init_descr_32(16)
+# # encoder128 = init_descr_128(16)
+# encoder128 = init_descr(model_version='16_alex_layer1finetuned_2_finetuned_3conv3mp_lamb', nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_height=patch_height, patch_width=patch_width)
+#
+# random_seed = 120 #120
+# np.random.seed(random_seed)
+#
+# # mask = mask_random_border_rectangle(patch_size=16, mask_percentage_per_axis_mu=0.3, mask_percentage_per_axis_sigma=0.1)
+# # mask = mask_of_specific_percentage(0.19, 0.26, mask_random_border_rectangle)
+# # with open("/home/niaki/Downloads/mask_10", 'wb') as f:
+# #     pickle.dump(mask, f)
+#
+# mask_path = "/home/niaki/Downloads/mask_21"
+# with open(mask_path, 'rb') as f:
+#     mask = pickle.load(f)
+#
+# # mask = mask_ising_model(patch_size=patch_size)
 
-
-missing_perc = 0
-
-
-encoder32 = init_descr_32(16)
-encoder128 = init_descr_128(16)
-
-random_seed = 120
-np.random.seed(random_seed)
-
-# mask = mask_random_border_rectangle(patch_size=16, mask_percentage_per_axis_mu=0.3, mask_percentage_per_axis_sigma=0.1)
-# mask = mask_of_specific_percentage(0.19, 0.26, mask_random_border_rectangle)
-# with open("/home/niaki/Downloads/mask_10", 'wb') as f:
-#     pickle.dump(mask, f)
-
-# with open("/home/niaki/Downloads/mask_21", 'rb') as f:
-    # mask = pickle.load(f)
-
-mask = mask_ising_model(patch_size=patch_size)
-
-def get_the_randomness():
+def get_the_randomness(random_seed):
     np.random.seed(random_seed)
     # to get the same randomness as if we had all the points and were using that seed
     for i in range(0):
@@ -72,7 +76,7 @@ def overlay_image_with_mask(image, mask):
     for i in range(image.shape[0]):
         for j in range(image.shape[1]):
             if mask[i, j] == 1:
-                overlayed_image[i, j, :] = 0
+                overlayed_image[i, j, :] = [0, 255, 255]
                 # overlayed_image[i, j, :] = image[i, j, :] * 0.5
     return overlayed_image
 
@@ -82,13 +86,17 @@ def overlay_image_with_mask(image, mask):
 
 def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
                                         results_patches_x_coords_1, results_patches_y_coords_1,
-                                        results_patches_x_coords_2, results_patches_y_coords_2):
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, mask,
+                                        patch_size=16, nr_similar_patches=5):
+    image = imageio.imread(image_path)
+    image = image / 255.
+
     y_offset_under = -0.2
     font_size = 18
     x_offset_left = -2.5
-    y_offset_left = 2.5
-
-    get_the_randomness()
+    y_offset_left = 15
+    psnr_max_value = 0
 
     fig = plt.figure(figsize=(17, 8))
 
@@ -114,24 +122,25 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
 
         ax = fig.add_subplot(rows, columns, (counter_query_patches * 3) * (nr_similar_patches + 1) + 1)
         ax.axis('off')
-        ax.set_title('query', y=y_offset_under, fontsize=font_size)  # + str(query_it + 1)
+        # ax.set_title('query', y=y_offset_under, fontsize=font_size)  # + str(query_it + 1)
         ax.imshow(patch_query)
 
         for i in range(nr_similar_patches):
             x_compare = results_patches_x_coords_0[counter_query_patches][i]
             y_compare = results_patches_y_coords_0[counter_query_patches][i]
 
-            psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
-                                  image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
-                                  max_value=psnr_max_value)
+            # psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
+            #                       image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
+            #                       max_value=psnr_max_value)
 
             patch_compare = image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :]
             # patch_compare = overlay_image_with_mask(patch_compare, mask)
 
             ax = fig.add_subplot(rows, columns, (counter_query_patches * 3) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
-            if i == 0:
-                ax.text(x_offset_left, 1, 'proposed v128', rotation=90, fontsize=font_size)
+            ax.set_ylabel('test')
+            # if i == 0:
+            #     ax.text(x_offset_left, y_offset_left, 'proposed v128', rotation=90, fontsize=font_size) #y_offset_left
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -139,17 +148,17 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             x_compare = results_patches_x_coords_1[counter_query_patches][i]
             y_compare = results_patches_y_coords_1[counter_query_patches][i]
 
-            psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
-                                  image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
-                                  max_value=psnr_max_value)
+            # psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
+            #                       image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
+            #                       max_value=psnr_max_value)
 
             patch_compare = image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :]
             # patch_compare = overlay_image_with_mask(patch_compare, mask)
 
             ax = fig.add_subplot(rows, columns, ((counter_query_patches * 3) + 1) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
-            if i == 0:
-                ax.text(x_offset_left, y_offset_left, 'Chen et al.', rotation=90, fontsize=font_size)
+            # if i == 0:
+            #     ax.text(x_offset_left, y_offset_left - 2, 'Chen et al.', rotation=90, fontsize=font_size)
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -157,17 +166,17 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
             x_compare = results_patches_x_coords_2[counter_query_patches][i]
             y_compare = results_patches_y_coords_2[counter_query_patches][i]
 
-            psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
-                                  image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
-                                  max_value=psnr_max_value)
+            # psnr = calculate_psnr(image[x_query: x_query + patch_size, y_query: y_query + patch_size, :],
+            #                       image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size, :],
+            #                       max_value=psnr_max_value)
 
             patch_compare = image[x_compare: x_compare + patch_size, y_compare: y_compare + patch_size]
             # patch_compare = overlay_image_with_mask(patch_compare, mask)
 
             ax = fig.add_subplot(rows, columns, ((counter_query_patches * 3) + 2) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
-            if i == 0:
-                ax.text(x_offset_left, y_offset_left, 'exhaustive', rotation=90, fontsize=font_size)
+            # if i == 0:
+            #     ax.text(x_offset_left, y_offset_left - 2, 'exhaustive', rotation=90, fontsize=font_size)
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -177,16 +186,25 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
         # x_query) + "_" + str(y_query) + "_clean.pdf", bbox_inches='tight')
     # fig.savefig("/home/niaki/PycharmProjects/patch-desc-ae/results/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_missing" + str(computed_mask_perc) + ".pdf", bbox_inches='tight')
 
-    fig.savefig("/home/niaki/Downloads/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_missing" + str(computed_mask_perc) + "_blackoverlay.pdf", bbox_inches='tight')
+    fig.savefig("/home/niaki/Downloads/Visualisation_v128_chen_exhaustive_q_" + str(x_query) + "_" + str(y_query) + "_missing" + str(computed_mask_perc) + "_cyanoverlay" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".pdf", bbox_inches='tight')
     fig.show()
 
     plt.show(block=True)
     plt.interactive(False)
 
 
-def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
+def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc,
+                                           image_path, mask, encoder32, encoder128,
+                                           patch_size=16, compare_stride=8, eps=0.0001, nr_similar_patches=5):
+    image = imageio.imread(image_path)
+    image_height = image.shape[0]
+    image_width = image.shape[1]
+    # psnr_max_value = 255
 
-    get_the_randomness()
+    image = image / 255.
+    # psnr_max_value = 1
+
+
 
 
     results_patches_diffs = {}
@@ -271,18 +289,109 @@ def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
     return results_patches_x_coords, results_patches_y_coords
 
 
+def pickle_vars_for_visualisation(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
+                                    results_patches_x_coords_1, results_patches_y_coords_1,
+                                    results_patches_x_coords_2, results_patches_y_coords_2,
+                                    image_path, mask_path, patch_size, nr_similar_patches):
+    with open(mask_path, 'rb') as f:
+        mask = pickle.load(f)
+    computed_mask_perc = int(compute_mask_percentage(mask) * 100)
+    pickle_file_path = "../zimnica/visualisation_" +  str(x_queries[0]) + "_" + str(y_queries[0]) + "_missing" + str(computed_mask_perc) + "_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.pickle'
+    try:
+        pickle.dump((x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
+                                        results_patches_x_coords_1, results_patches_y_coords_1,
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, mask_path, patch_size, nr_similar_patches),
+                                        open(pickle_file_path, "wb"))
+    except Exception as e:
+        print("Problem while trying to pickle: ", str(e))
+
+
+def unpickle_vars(pickle_file_path):
+    try:
+        x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, patch_size, nr_similar_patches, psnr_max_value = pickle.load(open(pickle_file_path, "rb"))
+        return x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, patch_size, nr_similar_patches, psnr_max_value
+    except Exception as e:
+        print("Problem while trying to unpickle: ", str(e))
+        return None
+
+
 
 def main():
-    x_queries = [58] #[9, 58, 315, 26]
-    y_queries = [233] #[12, 233, 101, 473]
+    x_queries = [445] #[9, 58, 315, 26]
+    y_queries = [88] #[12, 233, 101, 473]
 
-    results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1)
-    results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2)
-    results_patches_x_coords_2, results_patches_y_coords_2 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 3)
+    image_path = '/home/niaki/Downloads/barbara.bmp'
+
+    patch_size = 16
+    patch_width = patch_size
+    patch_height = patch_size
+
+    nr_similar_patches = 5
+    query_stride = 100
+    compare_stride = 8
+    eps = 0.0001
+
+    image = imageio.imread(image_path)
+    image_height = image.shape[0]
+    image_width = image.shape[1]
+    image = image / 255.
+
+    encoder32 = init_descr_32(16)
+    encoder128 = init_descr(model_version='16_alex_layer1finetuned_2_finetuned_3conv3mp_lamb',
+                            nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_height=patch_height,
+                            patch_width=patch_width)
+
+    mask_path = "/home/niaki/Downloads/mask_21"
+    with open(mask_path, 'rb') as f:
+        mask = pickle.load(f)
+
+
+
+
+
+
+    results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1,
+                                            image_path, mask, encoder32, encoder128,
+                                            patch_size=patch_size, compare_stride=compare_stride,
+                                            nr_similar_patches=nr_similar_patches)
+
+    results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2,
+                                            image_path, mask, encoder32, encoder128,
+                                            patch_size=patch_size, compare_stride=compare_stride,
+                                            nr_similar_patches=nr_similar_patches)
+    results_patches_x_coords_2, results_patches_y_coords_2 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 3,
+                                            image_path, mask, encoder32, encoder128,
+                                            patch_size=patch_size, compare_stride=compare_stride,
+                                            nr_similar_patches=nr_similar_patches)
+
+    pickle_vars_for_visualisation(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
+                                        results_patches_x_coords_1, results_patches_y_coords_1,
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, mask_path, patch_size, nr_similar_patches)
+
+
+    ##### (comment EITHER: everything above here in main(), OR the unpickling line just bellow
+
+
+    # x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, \
+    #     results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, \
+    #     patch_size, nr_similar_patches, psnr_max_value = \
+    #     unpickle_vars("../zimnica/visualisation_445_88_missing21_20191212_173120.pickle")
+
+    image = imageio.imread(image_path)
+    image_height = image.shape[0]
+    image_width = image.shape[1]
+    with open(mask_path, 'rb') as f:
+        mask = pickle.load(f)
+
 
     generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
                                         results_patches_x_coords_1, results_patches_y_coords_1,
-                                        results_patches_x_coords_2, results_patches_y_coords_2)
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, mask,
+                                        patch_size=patch_size, nr_similar_patches=nr_similar_patches)
+
 
 if __name__ == '__main__':
     main()
