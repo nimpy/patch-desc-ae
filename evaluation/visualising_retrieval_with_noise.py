@@ -1,4 +1,4 @@
-from ae_descriptor import init_descr_32, init_descr_128, compute_descriptor
+from ae_descriptor import init_descr_32, init_descr, compute_descriptor
 from other_descriptors.other_descriptors import compute_chen_rgb
 from utils.comparisons import calculate_ssd
 from utils.noise import add_gaussian_noise
@@ -10,48 +10,56 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib
 import datetime
-
-
-# image_path = '/home/niaki/Downloads/Lenna.png'
-# image_path = '/scratch/data/panel13/panel13_cropped2.png'
-image_path = '/home/niaki/Downloads/clean.jpg'
-
-patch_size = 16
-patch_width = patch_size
-patch_height = patch_size
-
-nr_similar_patches = 5
-query_stride = 100
-compare_stride = 8
-eps = 0.0001
-
-random_seed = 120
-
-
-image = imageio.imread(image_path)
-image_height = image.shape[0]
-image_width = image.shape[1]
-psnr_max_value = 255
-
-noise_level = 10
-image_noisy = add_gaussian_noise(image, sigma=noise_level)
-
-
-encoder32 = init_descr_32(16)
-encoder128 = init_descr_128(16)
-
-
-
-###
-image_noisy = image_noisy / 255.
-
-image = image / 255.
-psnr_max_value = 1
+#
+# # image_path = '/home/niaki/Downloads/Lenna.png'
+# # image_path = '/scratch/data/panel13/panel13_cropped2.png'
+# image_path = '/home/niaki/Downloads/clean.jpg'
+#
+# patch_size = 16
+# patch_width = patch_size
+# patch_height = patch_size
+#
+# nr_similar_patches = 5
+# query_stride = 100
+# compare_stride = 8
+# eps = 0.0001
+#
+# random_seed = 120
+#
+#
+# image = imageio.imread(image_path)
+# image_height = image.shape[0]
+# image_width = image.shape[1]
+# psnr_max_value = 255
+#
+# noise_level = 10
+# image_noisy = add_gaussian_noise(image, sigma=noise_level)
+#
+#
+# encoder32 = init_descr_32(16)
+# encoder128 = init_descr_128(16)
+#
+#
+#
+# ###
+# image_noisy = image_noisy / 255.
+#
+# image = image / 255.
+# psnr_max_value = 1
 
 
 def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
                                         results_patches_x_coords_1, results_patches_y_coords_1,
-                                        results_patches_x_coords_2, results_patches_y_coords_2):
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, random_seed, noise_level,
+                                        patch_size=16, nr_similar_patches=5):
+
+    np.random.seed(random_seed)
+    image = imageio.imread(image_path)
+    image_noisy = add_gaussian_noise(image, sigma=noise_level)
+    image = image / 255.
+    image_noisy = image_noisy / 255.
+
     y_offset_under = -0.2
     font_size = 18
     x_offset_left = -2.5
@@ -74,7 +82,7 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
 
         ax = fig.add_subplot(rows, columns, (counter_query_patches * 3) * (nr_similar_patches + 1) + 1)
         ax.axis('off')
-        ax.set_title('query', y=y_offset_under, fontsize=font_size)  # + str(query_it + 1)
+        # ax.set_title('query', y=y_offset_under, fontsize=font_size)  # + str(query_it + 1)
         ax.imshow(patch_query)
 
         for i in range(nr_similar_patches):
@@ -89,9 +97,9 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
 
             ax = fig.add_subplot(rows, columns, (counter_query_patches * 3) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
-            if i == 0:
+            # if i == 0:
                 # ax.text(x_offset_left, 1, 'proposed v128', rotation=90, fontsize=font_size)
-                ax.text(x_offset_left, y_offset_left, 'proposed v128', rotation=90, fontsize=font_size)  # y_offset_left
+                # ax.text(x_offset_left, y_offset_left, 'proposed v128', rotation=90, fontsize=font_size)  # y_offset_left
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -107,8 +115,8 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
 
             ax = fig.add_subplot(rows, columns, ((counter_query_patches * 3) + 1) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
-            if i == 0:
-                ax.text(x_offset_left, y_offset_left - 2, 'Chen et al.', rotation=90, fontsize=font_size)
+            # if i == 0:
+                # ax.text(x_offset_left, y_offset_left - 2, 'Chen et al.', rotation=90, fontsize=font_size)
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -124,8 +132,8 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
 
             ax = fig.add_subplot(rows, columns, ((counter_query_patches * 3) + 2) * (nr_similar_patches + 1) + 2 + i)
             ax.axis('off')
-            if i == 0:
-                ax.text(x_offset_left, y_offset_left - 2, 'exhaustive', rotation=90, fontsize=font_size)
+            # if i == 0:
+                # ax.text(x_offset_left, y_offset_left - 2, 'exhaustive', rotation=90, fontsize=font_size)
             # ax.set_title("{:.2f} [dB]".format(psnr), y=y_offset_under, fontsize=font_size)
             ax.imshow(patch_compare)
 
@@ -142,7 +150,17 @@ def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_
     plt.interactive(False)
 
 
-def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
+def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc,
+                                           image_path, random_seed, noise_level, encoder32, encoder128,
+                                           patch_size=16, compare_stride=8, eps=0.0001, nr_similar_patches=5):
+
+    np.random.seed(random_seed)
+    image = imageio.imread(image_path)
+    image_height = image.shape[0]
+    image_width = image.shape[1]
+    image_noisy = add_gaussian_noise(image, sigma=noise_level)
+    image = image / 255.
+    image_noisy = image_noisy / 255.
 
     results_patches_diffs = {}
     results_patches_x_coords = {}
@@ -219,18 +237,95 @@ def retrieve_patches_for_queries_and_descr(x_queries, y_queries, which_desc):
     return results_patches_x_coords, results_patches_y_coords
 
 
+def pickle_vars_for_visualisation(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
+                                    results_patches_x_coords_1, results_patches_y_coords_1,
+                                    results_patches_x_coords_2, results_patches_y_coords_2,
+                                    image_path, random_seed, noise_level, patch_size, nr_similar_patches):
+
+    pickle_file_path = "../zimnica/visualisation_" +  str(x_queries[0]) + "_" + str(y_queries[0]) + "_noisy" + str(noise_level) + "_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + '.pickle'
+    try:
+        pickle.dump((x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
+                                        results_patches_x_coords_1, results_patches_y_coords_1,
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, random_seed, noise_level, patch_size, nr_similar_patches),
+                                        open(pickle_file_path, "wb"))
+    except Exception as e:
+        print("Problem while trying to pickle: ", str(e))
+
+
+def unpickle_vars(pickle_file_path):
+    try:
+        x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, random_seed, noise_level, patch_size, nr_similar_patches = pickle.load(open(pickle_file_path, "rb"))
+        return x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, random_seed, noise_level, patch_size, nr_similar_patches
+    except Exception as e:
+        print("Problem while trying to unpickle: ", str(e))
+        return None
+
+
+
+
 
 def main():
-    x_queries = [1185] #[9, 58, 315, 26]
-    y_queries = [570] #[12, 233, 101, 473]
+    x_queries = [113] #[9, 58, 315, 26]
+    y_queries = [163] #[12, 233, 101, 473]
 
-    results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1)
-    results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2)
-    results_patches_x_coords_2, results_patches_y_coords_2 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 3)
+    image_path = '/home/niaki/Downloads/monarch_cropped.png'  # '/home/niaki/Downloads/barbara.bmp'
+
+    patch_size = 16
+    patch_width = patch_size
+    patch_height = patch_size
+
+    nr_similar_patches = 5
+    query_stride = 100
+    compare_stride = 2
+    eps = 0.0001
+
+    image = imageio.imread(image_path)
+    image_height = image.shape[0]
+    image_width = image.shape[1]
+    image = image / 255.
+
+    encoder32 = init_descr_32(16)
+    encoder128 = init_descr(model_version='16_alex_layer1finetuned_2_finetuned_3conv3mp_lamb',
+                            nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_height=patch_height,
+                            patch_width=patch_width)
+
+    random_seed = 124
+    noise_level = 18
+
+
+    results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1,
+                                                    image_path, random_seed, noise_level, encoder32, encoder128,
+                                                    patch_size=patch_size, compare_stride=compare_stride,
+                                                    nr_similar_patches=nr_similar_patches)
+    results_patches_x_coords_1, results_patches_y_coords_1 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 2,
+                                                    image_path, random_seed, noise_level, encoder32, encoder128,
+                                                    patch_size=patch_size, compare_stride=compare_stride,
+                                                    nr_similar_patches=nr_similar_patches)
+    results_patches_x_coords_2, results_patches_y_coords_2 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 3,
+                                                    image_path, random_seed, noise_level, encoder32, encoder128,
+                                                    patch_size=patch_size, compare_stride=compare_stride,
+                                                    nr_similar_patches=nr_similar_patches)
+
+    pickle_vars_for_visualisation(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
+                                  results_patches_x_coords_1, results_patches_y_coords_1,
+                                  results_patches_x_coords_2, results_patches_y_coords_2,
+                                  image_path, random_seed, noise_level, patch_size, nr_similar_patches)
+
+
+    ##### (comment EITHER: everything above here in main(), OR the unpickling line just bellow
+
+
+    # x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, \
+    #     results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, random_seed, noise_level, \
+    #     patch_size, nr_similar_patches = \
+    #     unpickle_vars("../zimnica/somethingsomething.pickle")
 
     generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
                                         results_patches_x_coords_1, results_patches_y_coords_1,
-                                        results_patches_x_coords_2, results_patches_y_coords_2)
+                                        results_patches_x_coords_2, results_patches_y_coords_2,
+                                        image_path, random_seed, noise_level,
+                                        patch_size=patch_size, nr_similar_patches=nr_similar_patches)
 
 if __name__ == '__main__':
     main()

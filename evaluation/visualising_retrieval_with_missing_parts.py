@@ -1,4 +1,4 @@
-from ae_descriptor import init_descr_32, init_descr_128, init_descr, compute_descriptor
+from ae_descriptor import init_descr_32, init_descr, compute_descriptor
 from other_descriptors.other_descriptors import compute_chen_rgb
 from utils.comparisons import calculate_ssd
 from utils.partially_obscuring import mask_random_corner_rectangle, mask_random_border_rectangle, mask_ising_model, compute_mask_percentage, mask_of_specific_percentage
@@ -309,8 +309,8 @@ def pickle_vars_for_visualisation(x_queries, y_queries, results_patches_x_coords
 
 def unpickle_vars(pickle_file_path):
     try:
-        x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, patch_size, nr_similar_patches, psnr_max_value = pickle.load(open(pickle_file_path, "rb"))
-        return x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, patch_size, nr_similar_patches, psnr_max_value
+        x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, patch_size, nr_similar_patches = pickle.load(open(pickle_file_path, "rb"))
+        return x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, patch_size, nr_similar_patches
     except Exception as e:
         print("Problem while trying to unpickle: ", str(e))
         return None
@@ -318,10 +318,10 @@ def unpickle_vars(pickle_file_path):
 
 
 def main():
-    x_queries = [445] #[9, 58, 315, 26]
-    y_queries = [88] #[12, 233, 101, 473]
+    x_queries = [118] #[9, 58, 315, 26]
+    y_queries = [351] #[12, 233, 101, 473]
 
-    image_path = '/home/niaki/Downloads/barbara.bmp'
+    image_path = '/home/niaki/Downloads/baboon.png' #'/home/niaki/Downloads/barbara.bmp'
 
     patch_size = 16
     patch_width = patch_size
@@ -329,7 +329,7 @@ def main():
 
     nr_similar_patches = 5
     query_stride = 100
-    compare_stride = 8
+    compare_stride = 3
     eps = 0.0001
 
     image = imageio.imread(image_path)
@@ -342,7 +342,7 @@ def main():
                             nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_height=patch_height,
                             patch_width=patch_width)
 
-    mask_path = "/home/niaki/Downloads/mask_21"
+    mask_path = "/home/niaki/Downloads/mask_16"
     with open(mask_path, 'rb') as f:
         mask = pickle.load(f)
 
@@ -376,15 +376,11 @@ def main():
 
     # x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0, results_patches_x_coords_1, \
     #     results_patches_y_coords_1, results_patches_x_coords_2, results_patches_y_coords_2, image_path, mask_path, \
-    #     patch_size, nr_similar_patches, psnr_max_value = \
-    #     unpickle_vars("../zimnica/visualisation_445_88_missing21_20191212_173120.pickle")
+    #     patch_size, nr_similar_patches = \
+    #     unpickle_vars("../zimnica/visualisation_445_88_missing21_20191215_140006.pickle")
 
-    image = imageio.imread(image_path)
-    image_height = image.shape[0]
-    image_width = image.shape[1]
     with open(mask_path, 'rb') as f:
         mask = pickle.load(f)
-
 
     generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
                                         results_patches_x_coords_1, results_patches_y_coords_1,
