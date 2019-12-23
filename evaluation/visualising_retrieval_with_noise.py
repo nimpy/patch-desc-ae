@@ -10,42 +10,6 @@ import pickle
 import matplotlib.pyplot as plt
 import matplotlib
 import datetime
-#
-# # image_path = '/home/niaki/Downloads/Lenna.png'
-# # image_path = '/scratch/data/panel13/panel13_cropped2.png'
-# image_path = '/home/niaki/Downloads/clean.jpg'
-#
-# patch_size = 16
-# patch_width = patch_size
-# patch_height = patch_size
-#
-# nr_similar_patches = 5
-# query_stride = 100
-# compare_stride = 8
-# eps = 0.0001
-#
-# random_seed = 120
-#
-#
-# image = imageio.imread(image_path)
-# image_height = image.shape[0]
-# image_width = image.shape[1]
-# psnr_max_value = 255
-#
-# noise_level = 10
-# image_noisy = add_gaussian_noise(image, sigma=noise_level)
-#
-#
-# encoder32 = init_descr_32(16)
-# encoder128 = init_descr_128(16)
-#
-#
-#
-# ###
-# image_noisy = image_noisy / 255.
-#
-# image = image / 255.
-# psnr_max_value = 1
 
 
 def generate_visualisation_for_3_descrs(x_queries, y_queries, results_patches_x_coords_0, results_patches_y_coords_0,
@@ -266,10 +230,10 @@ def unpickle_vars(pickle_file_path):
 
 
 def main():
-    x_queries = [113] #[9, 58, 315, 26]
-    y_queries = [163] #[12, 233, 101, 473]
+    x_queries = [124]
+    y_queries = [359]
 
-    image_path = '/home/niaki/Downloads/monarch_cropped.png'  # '/home/niaki/Downloads/barbara.bmp'
+    image_path = '/home/niaki/Downloads/monarch_cropped_mirrored.png'
 
     patch_size = 16
     patch_width = patch_size
@@ -291,7 +255,7 @@ def main():
                             patch_width=patch_width)
 
     random_seed = 124
-    noise_level = 18
+    noise_level = 0
 
 
     results_patches_x_coords_0, results_patches_y_coords_0 = retrieve_patches_for_queries_and_descr(x_queries, y_queries, 1,

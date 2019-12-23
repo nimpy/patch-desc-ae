@@ -11,49 +11,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import datetime
 
-# # image_path = '/scratch/data/mystic_lamb/mystic_lamb_cropped2.png'
-# # image_path = '/home/niaki/Downloads/Lenna.png'
-# image_path = '/home/niaki/Downloads/barbara.bmp'
-#
-# patch_size = 16
-# patch_width = patch_size
-# patch_height = patch_size
-#
-# nr_similar_patches = 5
-# query_stride = 100
-# compare_stride = 8
-# eps = 0.0001
-#
-#
-# image = imageio.imread(image_path)
-# image_height = image.shape[0]
-# image_width = image.shape[1]
-# psnr_max_value = 255
-#
-# image = image / 255.
-# psnr_max_value = 1
-#
-#
-# missing_perc = 0
-#
-#
-# encoder32 = init_descr_32(16)
-# # encoder128 = init_descr_128(16)
-# encoder128 = init_descr(model_version='16_alex_layer1finetuned_2_finetuned_3conv3mp_lamb', nr_feature_maps_layer1=32, nr_feature_maps_layer23=32, patch_height=patch_height, patch_width=patch_width)
-#
-# random_seed = 120 #120
-# np.random.seed(random_seed)
-#
-# # mask = mask_random_border_rectangle(patch_size=16, mask_percentage_per_axis_mu=0.3, mask_percentage_per_axis_sigma=0.1)
-# # mask = mask_of_specific_percentage(0.19, 0.26, mask_random_border_rectangle)
-# # with open("/home/niaki/Downloads/mask_10", 'wb') as f:
-# #     pickle.dump(mask, f)
-#
-# mask_path = "/home/niaki/Downloads/mask_21"
-# with open(mask_path, 'rb') as f:
-#     mask = pickle.load(f)
-#
-# # mask = mask_ising_model(patch_size=patch_size)
+
 
 def get_the_randomness(random_seed):
     np.random.seed(random_seed)
@@ -316,10 +274,10 @@ def unpickle_vars(pickle_file_path):
         return None
 
 
-
 def main():
-    x_queries = [118] #[9, 58, 315, 26]
-    y_queries = [351] #[12, 233, 101, 473]
+
+    x_queries = [118]
+    y_queries = [351]
 
     image_path = '/home/niaki/Downloads/baboon.png' #'/home/niaki/Downloads/barbara.bmp'
 
@@ -345,9 +303,6 @@ def main():
     mask_path = "/home/niaki/Downloads/mask_16"
     with open(mask_path, 'rb') as f:
         mask = pickle.load(f)
-
-
-
 
 
 
