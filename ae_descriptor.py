@@ -2,14 +2,16 @@ from keras.layers import Input, MaxPooling2D, Conv2D
 from keras.models import Model, load_model
 
 import numpy as np
+import os
 
 nr_channels = 3
-models_dir = '/home/niaki/Projects/patch-desc-ae/models'
+# models_dir = 'models'
+models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models')
 
 
 def init_descr(model_version=32, nr_feature_maps_layer1=16, nr_feature_maps_layer23=8, patch_height=16, patch_width=16):
 
-    encoder_trained = load_model(models_dir + '/encoder' + str(model_version) + '.h5')
+    encoder_trained = load_model(os.path.join(models_dir, 'encoder' + str(model_version) + '.h5'))  # (models_dir + '/encoder' + str(model_version) + '.h5')
 
     if patch_height == 16 and patch_width == 16:
         return encoder_trained

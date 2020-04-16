@@ -1,11 +1,13 @@
 import numpy as np
+import os
 from other_descriptors.chen_descriptor_training import sigmoid
 # import cv2 as cv
 
-
 patch_size = 16
 
-models_dir = '/home/niaki/Projects/patch-desc-ae/other_descriptors'
+models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, 'other_descriptors')
+
+# 'other_descriptors'
 
 # Chen et al. version for RGB images
 
@@ -13,7 +15,7 @@ def init_chen_rgb():
     input_size = patch_size * patch_size * 3
     hidden_size = 128
 
-    theta = np.load(models_dir + '/encoderChenEtAl_RGB_400it.npy')
+    theta = np.load(os.path.join(models_dir, 'encoderChenEtAl_RGB_400it.npy'))
 
     W1 = theta[0:hidden_size * input_size].reshape(hidden_size, input_size)
     W2 = theta[hidden_size * input_size:2 * hidden_size * input_size].reshape(input_size, hidden_size)
