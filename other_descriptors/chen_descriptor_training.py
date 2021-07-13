@@ -200,7 +200,8 @@ def load_data(dir_images):
 
     for file in files:
         image = imageio.imread(dir_images + file)
-        image = image.reshape(image.shape[0] * image.shape[1])
+        image = image[:65, :65]        
+        image = image.reshape(image.shape[0] * image.shape[1])        
         #     image = np.expand_dims(image, axis=0)
         images.append(image)
 
@@ -229,11 +230,11 @@ def train_autoencoder(train_images, input_size=16*16, hidden_size=128, sparsity_
 
 
 def main():
-    dir_images = '/home/niaki/Code/ImageNet/tiny-imagenet-200/tiny_test16_gray/class0/'
+    dir_images = '/scratch/image_datasets/3_65x65/ready/training/class0/'
 
     images = load_data(dir_images)
-    theta = train_autoencoder(images)
-    np.save('encoderChenEtAl_400it.npy', theta)
+    theta = train_autoencoder(images, input_size=65*65)
+    np.save('encoderChenEtAl_400it_for_HPatches_eval.npy', theta)
 
 
 if __name__ == "__main__":
